@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PagoFlex</string>
+
+    <string name="ingreso_subtitulo">Todos tus pagos, en un solo lugar</string>
+    <string name="ingreso_pregunta">¿Con qué perfil quieres entrar?</string>
+
+    <string name="saludo">Hola, %1$s</string>
+    <string name="titulo_cumplimiento">Tu cumplimiento</string>
+    <string name="sin_compromisos">¡Estás al día! No tienes compromisos pendientes.</string>
+    <string name="ultima_actualizacion">Actualizado el %1$s</string>
+
+    <string name="menu_historial">Historial de pagos</string>
+    <string name="menu_cumplimiento">Mi cumplimiento</string>
+    <string name="menu_avisos">Avisos de vencimiento</string>
+    <string name="menu_registrar">Registrar compromiso</string>
+    <string name="menu_resumen">Resumen de cobranza</string>
+
+    <string name="titulo_detalle">Detalle del compromiso</string>
+    <string name="titulo_pago">Pagar compromiso</string>
+    <string name="titulo_comprobante">Comprobante</string>
+    <string name="titulo_reportar">Reportar un problema</string>
+    <string name="titulo_tu_reporte">Tu reporte %1$s</string>
+    <string name="titulo_medio_pago">¿Cómo quieres pagar?</string>
+    <string name="titulo_que_paso">¿Qué pasó?</string>
+    <string name="titulo_foto">Foto del comprobante</string>
+    <string name="titulo_anulados">Compromisos anulados</string>
+    <string name="titulo_preferencias_avisos">Preferencias</string>
+    <string name="titulo_reportes">Reportes de problema</string>
+    <string name="titulo_reporte_numero">Reporte %1$s</string>
+    <string name="titulo_datos_reporte">Datos del reporte</string>
+    <string name="titulo_respuesta">Respuesta para el usuario</string>
+    <string name="titulo_compromisos_empresa">Compromisos de la empresa</string>
+    <string name="titulo_persona">Persona</string>
+    <string name="titulo_compromiso">Compromiso</string>
+    <string name="titulo_tasa_cobranza">Tasa de cobranza</string>
+    <string name="titulo_grafico_estados">Compromisos por estado</string>
+
+    <string name="dato_folio">Folio</string>
+    <string name="dato_cuota">Cuota</string>
+    <string name="dato_vencimiento">Vencimiento</string>
+    <string name="dato_monto">Monto</string>
+    <string name="dato_dias_atraso">Días de atraso</string>
+    <string name="dato_recargo">Recargo por atraso</string>
+    <string name="dato_total_pagar">Total a pagar</string>
+    <string name="dato_motivo_anulacion">Motivo de anulación</string>
+    <string name="dato_motivo">Motivo</string>
+    <string name="dato_fecha">Fecha</string>
+    <string name="dato_concepto">Concepto</string>
+    <string name="dato_fecha_hora">Fecha y hora</string>
+    <string name="dato_pagado_por">Pagado por</string>
+    <string name="dato_empresa">Empresa</string>
+    <string name="dato_monto_cuota">Monto de la cuota</string>
+    <string name="dato_total_pagado">Total pagado</string>
+    <string name="dato_medio_pago">Medio de pago</string>
+    <string name="dato_canal">Canal</string>
+    <string name="dato_a_tiempo">¿Pagado a tiempo?</string>
+    <string name="dato_usuario">Usuario</string>
+    <string name="dato_agente">Agente responsable</string>
+    <string name="dato_fecha_resolucion">Resuelto el</string>
+    <string name="dato_nombre">Nombre</string>
+    <string name="dato_rut">RUT</string>
+
+    <string name="respuesta_soporte">Respuesta de soporte</string>
+    <string name="pago_seguro">PagoFlex nunca guarda números de tarjeta, claves ni datos de cuentas bancarias.</string>
+    <string name="procesando_pago">Procesando tu pago…</string>
+    <string name="pago_confirmado">¡Pago confirmado!</string>
+    <string name="numero_comprobante">Comprobante N° %1$s</string>
+    <string name="si">Sí</string>
+    <string name="no">No</string>
+    <string name="a_tiempo">A tiempo</string>
+    <string name="con_atraso">Con atraso</string>
+
+    <string name="dialogo_pago_titulo">Confirmar pago</string>
+    <string name="dialogo_pago_mensaje">Vas a pagar %1$s a %2$s con %3$s. ¿Confirmas?</string>
+    <string name="dialogo_salir_titulo">Cambiar de perfil</string>
+    <string name="dialogo_salir_mensaje">Se cerrará tu sesión y volverás a la pantalla de ingreso.</string>
+    <string name="dialogo_anular_titulo">Anular %1$s</string>
+
+    <string name="btn_pagar_monto">Pagar %1$s</string>
+    <string name="btn_reportar">Reportar un problema</string>
+    <string name="btn_ver_comprobante">Ver comprobante</string>
+    <string name="btn_confirmar_pago">Confirmar pago</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_ir_inicio">Volver al inicio</string>
+    <string name="btn_camara">Cámara</string>
+    <string name="btn_galeria">Galería</string>
+    <string name="btn_quitar_foto">Quitar foto</string>
+    <string name="btn_enviar_reporte">Enviar reporte</string>
+    <string name="btn_ajustes">Ajustes</string>
+    <string name="btn_guardar">Guardar preferencias</string>
+    <string name="btn_cambiar_perfil">Cambiar de perfil</string>
+    <string name="btn_tomar_reporte">Tomar reporte</string>
+    <string name="btn_resolver">Dar por resuelto</string>
+    <string name="btn_nuevo">Nuevo</string>
+    <string name="btn_anular">Anular</string>
+    <string name="btn_anular_compromiso">Anular compromiso</string>
+    <string name="btn_registrar">Registrar compromiso</string>
+
+    <string name="campo_empresa">Empresa</string>
+    <string name="campo_anio">Año</string>
+    <string name="campo_motivo">Motivo</string>
+    <string name="campo_comentario">Comentario</string>
+    <string name="campo_filtrar_estado">Filtrar por estado</string>
+    <string name="campo_respuesta">Respuesta</string>
+    <string name="campo_rut">RUT de la persona</string>
+    <string name="campo_concepto">Concepto</string>
+    <string name="campo_monto">Monto en pesos</string>
+    <string name="campo_vencimiento">Fecha de vencimiento</string>
+    <string name="campo_cuota">N° cuota</string>
+    <string name="campo_total_cuotas">Total cuotas</string>
+
+    <string name="filtro_todas">Todas</string>
+    <string name="filtro_todos">Todos</string>
+    <string name="historial_vacio">No hay pagos para los filtros elegidos.</string>
+
+    <string name="ayuda_comentario">%1$d/300 · Obligatorio si eliges Otro</string>
+    <string name="ayuda_comentario_anulacion">Obligatorio si eliges Otro</string>
+    <string name="ayuda_respuesta">El usuario verá este texto en su app</string>
+    <string name="ayuda_rut">Ejemplo: 12.476.318-5</string>
+    <string name="persona_encontrada">Persona: %1$s</string>
+    <string name="ayuda_monto">Solo números, sin puntos. Ejemplo: 310000</string>
+    <string name="ayuda_fecha">Formato DD-MM-AAAA</string>
+    <string name="ayuda_cuotas">Si el compromiso no es en cuotas, deja ambos campos vacíos.</string>
+
+    <string name="texto_foto">Si pagaste por otro medio, adjunta una foto del comprobante (opcional).</string>
+    <string name="permiso_camara_denegado">Sin permiso de cámara no podemos tomar la foto.</string>
+    <string name="permiso_galeria_denegado">Sin permiso de fotos no podemos abrir tu galería.</string>
+    <string name="sin_app_disponible">No encontramos una aplicación para esta acción.</string>
+
+    <string name="pagos_a_tiempo">Pagados a tiempo</string>
+    <string name="compromisos_considerados">Compromisos considerados</string>
+    <string name="como_se_calcula">¿Cómo se calcula?</string>
+    <string name="explicacion_cumplimiento">Es el porcentaje de tus compromisos pagados a tiempo en los últimos 12 meses. No se cuentan los anulados, los que están en revisión ni los que aún no vencen.</string>
+
+    <string name="avisos_descripcion">Elige con cuánta anticipación quieres enterarte de tus vencimientos. Los avisos aparecen en tu inicio.</string>
+    <string name="opcion_recibir_avisos">Recibir avisos de vencimiento</string>
+    <string name="etiqueta_anticipacion">Avisarme</string>
+    <string name="ejemplo_aviso">Ejemplo: Faltan %1$d días para tu arriendo. ¡Vas bien!</string>
+    <string name="avisos_guardados">Tus preferencias quedaron guardadas.</string>
+
+    <string name="estado_abiertos">Abiertos</string>
+    <string name="estado_atrasados">Atrasados</string>
+    <string name="estado_en_gestion">En gestión</string>
+    <string name="etiqueta_atrasado">Atrasado</string>
+    <string name="sin_reportes">No hay reportes con este estado.</string>
+    <string name="agente_no_anula">Si corresponde anular el cobro, coordínalo con el ejecutivo de la empresa antes de resolver.</string>
+
+    <string name="cantidad_compromisos">%1$d compromisos</string>
+    <string name="compromiso_anulado">Compromiso anulado</string>
+    <string name="registrar_para_empresa">El compromiso quedará registrado para %1$s.</string>
+    <string name="compromiso_registrado">Compromiso registrado. La persona ya lo ve en su app.</string>
+    <string name="estado_pagados">Pagados</string>
+    <string name="estado_pendientes">Pendientes</string>
+    <string name="estado_vencidos">Vencidos</string>
+    <string name="estado_revision">Revisión</string>
+    <string name="estado_anulados">Anulados</string>
+    <string name="monto_recaudado">Monto recaudado</string>
+    <string name="formula_tasa">%1$d pagados de %2$d (sin anulados)</string>
+
+    <string name="cd_volver">Volver</string>
+    <string name="cd_menu">Abrir menú</string>
+    <string name="cd_foto_comprobante">Foto del comprobante</string>
+    <string name="cd_mes_anterior">Mes anterior</string>
+    <string name="cd_mes_siguiente">Mes siguiente</string>
+    <string name="perfil_usuario">Usuario final</string>
+    <string name="perfil_agente">Agente de %1$s en PagoFlex</string>
+    <string name="perfil_ejecutivo">%1$s en %2$s</string>
+    <string name="persona_nueva">Esta persona aún no está en PagoFlex. Completa sus datos básicos.</string>
+    <string name="campo_nombre">Nombre completo</string>
+    <string name="campo_correo">Correo electrónico</string>
+    <string name="campo_telefono">Teléfono</string>
+    <string name="campo_estado">Estado</string>
+    <string name="campo_mes">Mes de vencimiento</string>
+    <string name="titulo_resumen_mes">Resumen del mes</string>
+    <string name="total_por_pagar">Total por pagar</string>
+    <string name="proximo_vencimiento">Próximo vencimiento</string>
+    <string name="compromisos_vencidos">Compromisos vencidos</string>
+    <string name="titulo_mis_compromisos">Mis compromisos</string>
+    <string name="categoria">Categoría</string>
+</resources>
