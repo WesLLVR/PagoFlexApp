@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 data class Pago(
     val id: Long,
     val numeroComprobante: String,
-    val idCompromiso: Long,
+    val compromisoId: Long,
     val folio: String,
     val empresa: String,
     val razonSocial: String,
@@ -16,7 +16,7 @@ data class Pago(
     val fechaHora: LocalDateTime,
     val montoCuota: Int,
     val montoPagado: Int,
-    val canal: Canal,
+    val canal: String,
     val medioPago: String,
     val aTiempo: Boolean,
     val nombreUsuario: String,
@@ -24,3 +24,8 @@ data class Pago(
 ) {
     val recargo: Int get() = montoPagado - montoCuota
 }
+
+data class PagoRealizado(
+    val pago: Pago,
+    val siguienteCuota: Compromiso?
+)

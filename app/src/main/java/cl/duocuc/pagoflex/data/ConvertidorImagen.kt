@@ -35,9 +35,6 @@ object ConvertidorImagen {
         return salida.toByteArray()
     }
 
-    fun aBitmap(bytes: ByteArray): Bitmap? =
-        BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-
     private fun achicar(bitmap: Bitmap): Bitmap {
         val ladoMayor = maxOf(bitmap.width, bitmap.height)
         if (ladoMayor <= LADO_MAXIMO) return bitmap
