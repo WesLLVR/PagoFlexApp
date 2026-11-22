@@ -25,4 +25,6 @@ object Dimens {
     val tamanoIcono = 20.dp
     val tamanoIconoGrande = 64.dp
     val espacioFab = 80.dp
+    val tamanoAvatar = 112.dp
+    val bordeAvatar = 3.dp
 }

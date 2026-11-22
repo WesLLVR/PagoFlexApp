@@ -7,7 +7,9 @@ import java.util.Locale
 object Formato {
     private val chile: Locale = Locale.forLanguageTag("es-CL")
 
-    fun pesos(monto: Int): String = "$ " + String.format(chile, "%,d", monto)
+    fun pesos(monto: Int): String = pesos(monto.toLong())
+
+    fun pesos(monto: Long): String = "$ " + String.format(chile, "%,d", monto)
 
     fun porcentaje(valor: Double): String = String.format(chile, "%.1f%%", valor)
 

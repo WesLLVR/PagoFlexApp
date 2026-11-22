@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 
 data class OpcionMenu(
     val texto: String,
-    @DrawableRes val icono: Int,
+    @param:DrawableRes val icono: Int,
     val onClick: () -> Unit
 )
 
@@ -52,7 +52,7 @@ fun MenuLateral(
                 TextButton(onClick = {
                     mostrarDialogo = false
                     onCerrarSesion()
-                }) { Text(stringResource(R.string.btn_cambiar_perfil)) }
+                }) { Text(stringResource(R.string.btn_cerrar_sesion)) }
             },
             dismissButton = {
                 TextButton(onClick = { mostrarDialogo = false }) {
@@ -94,7 +94,7 @@ fun MenuLateral(
 
                 HorizontalDivider()
                 NavigationDrawerItem(
-                    label = { Text(stringResource(R.string.btn_cambiar_perfil)) },
+                    label = { Text(stringResource(R.string.btn_cerrar_sesion)) },
                     icon = { Icon(painterResource(R.drawable.ic_salir), contentDescription = null) },
                     selected = false,
                     onClick = {
