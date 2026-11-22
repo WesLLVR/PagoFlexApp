@@ -17,7 +17,8 @@ enum class EstadoCompromiso(val etiqueta: String) {
 enum class EstadoReporte(val etiqueta: String) {
     ABIERTO("Abierto"),
     EN_GESTION("En gestión"),
-    RESUELTO("Resuelto")
+    RESUELTO("Resuelto"),
+    CERRADO("Cerrado")
 }
 
 enum class MotivoReporte(val etiqueta: String) {
@@ -51,4 +52,14 @@ enum class CategoriaCumplimiento(val etiqueta: String, val mensaje: String) {
     AL_DIA("Al día", "Vas muy bien, sigue así."),
     EN_CAMINO("En camino", "Cada pago a tiempo suma. ¡Tú puedes!"),
     SIN_HISTORIAL("Historial insuficiente", "Aún no tienes pagos suficientes para calcular tu indicador.")
+}
+
+enum class FiltroCompromiso(val etiqueta: String, val valorApi: String?) {
+    TODOS("Todos", null),
+    VIGENTES("Vigentes", "VIGENTE"),
+    PENDIENTES("Pendientes", "PENDIENTE"),
+    VENCIDOS("Vencidos", "VENCIDO"),
+    EN_REVISION("En revisión", "EN_REVISION"),
+    PAGADOS("Pagados", "PAGADO"),
+    ANULADOS("Anulados", "ANULADO")
 }

@@ -1,78 +1,59 @@
 package cl.duocuc.pagoflex.data.repository
 
-import android.content.ContentValues
-import android.database.Cursor
-import cl.duocuc.pagoflex.data.DatosIniciales
-import cl.duocuc.pagoflex.data.PagoFlexDbHelper
-import cl.duocuc.pagoflex.model.Rol
+import cl.duocuc.pagoflex.data.remote.ActualizarPerfilRequest
+import cl.duocuc.pagoflex.data.remote.CambiarContrasenaRequest
+import cl.duocuc.pagoflex.data.remote.LoginRequest
+import cl.duocuc.pagoflex.data.remote.RecuperarRequest
+import cl.duocuc.pagoflex.data.remote.RecuperarResponse
+import cl.duocuc.pagoflex.data.remote.RestablecerRequest
+import cl.duocuc.pagoflex.data.remote.RetrofitClient
+import cl.duocuc.pagoflex.data.remote.UsuarioApi
+import cl.duocuc.pagoflex.data.remote.aUsuario
+import cl.duocuc.pagoflex.data.remote.llamar
+import cl.duocuc.pagoflex.data.remote.llamarONulo
 import cl.duocuc.pagoflex.model.Usuario
-import java.util.Locale
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
-class UsuarioRepository(private val db: PagoFlexDbHelper) {
+class UsuarioRepository(
+    private val api: UsuarioApi = RetrofitClient.crear(UsuarioApi::class.java)
+) {
 
-    companion object {
-        private const val SQL_SELECT =
-            "SELECT u.*, e.nombre_fantasia FROM ${PagoFlexDbHelper.TABLA_USUARIOS} u " +
-                "LEFT JOIN ${PagoFlexDbHelper.TABLA_EMPRESAS} e ON u.id_empresa = e.id_empresa"
-    }
+    suspend fun iniciarSesion(correo: String, contrasena: String): Usuario =
+        llamar { api.iniciarSesion(LoginRequest(correo.trim(), contrasena)) }.aUsuario()
 
-    fun sesionesDisponibles(): List<Usuario> =
-        listOfNotNull(
-            buscarPorId(DatosIniciales.ID_CAMILA),
-            buscarPorId(DatosIniciales.ID_ANDRES),
-            buscarPorId(DatosIniciales.ID_PAULA)
+    suspend fun recuperar(correo: String): RecuperarResponse =
+        llamar { api.recuperar(RecuperarRequest(correo.trim())) }
+
+    suspend fun restablecer(correo: String, codigo: String, nueva: String) =
+        llamar { api.restablecer(RestablecerRequest(correo.trim(), codigo.trim(), nueva)) }
+
+    suspend fun obtener(id: Long): Usuario =
+        llamar { api.obtener(id) }.aUsuario()
+
+    suspend fun buscarPorRut(rut: String): Usuario? =
+        llamarONulo { api.buscarPorRut(rut) }?.aUsuario()
+
+    suspend fun actualizarPerfil(id: Long, nombre: String, correo: String, telefono: String, comuna: String): Usuario {
+        val datos = ActualizarPerfilRequest(
+            nombre = nombre.trim(),
+            correo = correo.trim(),
+            telefono = telefono.trim().ifBlank { null },
+            comuna = comuna.trim().ifBlank { null }
         )
-
-    fun buscarPorId(id: Long): Usuario? =
-        consultar("$SQL_SELECT WHERE u.id_usuario = ?", arrayOf(id.toString())).firstOrNull()
-
-    fun buscarUsuarioFinalPorRut(rut: String): Usuario? =
-        consultar(
-            "$SQL_SELECT WHERE REPLACE(u.rut, '.', '') = ? AND u.rol = ?",
-            arrayOf(rut.replace(".", "").uppercase(), Rol.USUARIO_FINAL.name)
-        ).firstOrNull()
-
-    fun registrarUsuarioFinal(nombre: String, rut: String, correo: String, telefono: String): Long {
-        val cantidad = db.readableDatabase.rawQuery(
-            "SELECT COUNT(*) FROM ${PagoFlexDbHelper.TABLA_USUARIOS} WHERE rol = ?",
-            arrayOf(Rol.USUARIO_FINAL.name)
-        ).use { cursor ->
-            cursor.moveToFirst()
-            cursor.getInt(0)
-        }
-        val valores = ContentValues().apply {
-            put("codigo", String.format(Locale.ROOT, "UF-%02d", cantidad + 1))
-            put("nombre", nombre.trim())
-            put("rut", rut)
-            put("correo", correo.trim())
-            put("telefono", telefono.trim())
-            put("rol", Rol.USUARIO_FINAL.name)
-        }
-        return db.writableDatabase.insert(PagoFlexDbHelper.TABLA_USUARIOS, null, valores)
+        return llamar { api.actualizarPerfil(id, datos) }.aUsuario()
     }
 
-    private fun consultar(sql: String, args: Array<String>): List<Usuario> {
-        val lista = mutableListOf<Usuario>()
-        db.readableDatabase.rawQuery(sql, args).use { cursor ->
-            while (cursor.moveToNext()) lista.add(leer(cursor))
-        }
-        return lista
+    suspend fun cambiarContrasena(id: Long, actual: String, nueva: String) =
+        llamar { api.cambiarContrasena(id, CambiarContrasenaRequest(actual, nueva)) }
+
+    suspend fun subirAvatar(id: Long, bytes: ByteArray): Usuario {
+        val cuerpo = bytes.toRequestBody("image/jpeg".toMediaType())
+        val parte = MultipartBody.Part.createFormData("archivo", "avatar.jpg", cuerpo)
+        return llamar { api.subirAvatar(id, parte) }.aUsuario()
     }
 
-    private fun leer(cursor: Cursor): Usuario {
-        val columnaEmpresa = cursor.getColumnIndexOrThrow("id_empresa")
-        val columnaCargo = cursor.getColumnIndexOrThrow("cargo")
-        val columnaNombreEmpresa = cursor.getColumnIndexOrThrow("nombre_fantasia")
-        return Usuario(
-            id = cursor.getLong(cursor.getColumnIndexOrThrow("id_usuario")),
-            codigo = cursor.getString(cursor.getColumnIndexOrThrow("codigo")),
-            nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre")),
-            rut = cursor.getString(cursor.getColumnIndexOrThrow("rut")),
-            correo = cursor.getString(cursor.getColumnIndexOrThrow("correo")),
-            rol = Rol.valueOf(cursor.getString(cursor.getColumnIndexOrThrow("rol"))),
-            idEmpresa = if (cursor.isNull(columnaEmpresa)) null else cursor.getLong(columnaEmpresa),
-            nombreEmpresa = if (cursor.isNull(columnaNombreEmpresa)) null else cursor.getString(columnaNombreEmpresa),
-            cargo = if (cursor.isNull(columnaCargo)) null else cursor.getString(columnaCargo)
-        )
-    }
+    suspend fun eliminarAvatar(id: Long): Usuario =
+        llamar { api.eliminarAvatar(id) }.aUsuario()
 }

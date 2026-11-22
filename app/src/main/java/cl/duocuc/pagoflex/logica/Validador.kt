@@ -4,18 +4,17 @@ import cl.duocuc.pagoflex.model.MedioPago
 import cl.duocuc.pagoflex.model.MotivoAnulacion
 import cl.duocuc.pagoflex.model.MotivoReporte
 import cl.duocuc.pagoflex.util.Fechas
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.format.ResolverStyle
 
 object Validador {
 
     private const val LARGO_MINIMO_COMENTARIO = 10
     private const val LARGO_MAXIMO_COMENTARIO = 300
     private const val MONTO_MAXIMO = 50_000_000
-
-    private val formatoFecha: DateTimeFormatter =
-        DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT)
+    private const val LARGO_MINIMO_CONTRASENA = 6
+    private const val LARGO_MAXIMO_CONTRASENA = 20
+    private const val LARGO_CODIGO = 6
 
     fun rut(texto: String): String? {
         val limpio = limpiarRut(texto)
@@ -67,11 +66,14 @@ object Validador {
         }
     }
 
-    fun fechaVencimiento(texto: String): String? {
-        if (texto.isBlank()) return "La fecha de vencimiento es obligatoria"
-        val fecha = fechaDesdeTexto(texto) ?: return "Usa el formato DD-MM-AAAA"
-        return if (fecha.isBefore(Fechas.hoy())) "La fecha no puede ser anterior a hoy" else null
+    fun fechaVencimiento(fecha: LocalDate?): String? = when {
+        fecha == null -> "Elige la fecha de vencimiento"
+        fecha.isBefore(Fechas.hoy()) -> "La fecha no puede ser anterior a hoy"
+        else -> null
     }
+
+    fun rangoFechas(desde: LocalDate?, hasta: LocalDate?): String? =
+        if (desde != null && hasta != null && desde.isAfter(hasta)) "La fecha \"desde\" debe ser anterior a \"hasta\"" else null
 
     fun cuotas(cuota: String, total: String): Pair<String?, String?> {
         if (cuota.isBlank() && total.isBlank()) return null to null
@@ -118,10 +120,46 @@ object Validador {
         else -> null
     }
 
-    fun fechaDesdeTexto(texto: String): LocalDate? = try {
-        LocalDate.parse(texto.trim(), formatoFecha)
-    } catch (e: Exception) {
-        null
+    fun contrasenaIngreso(texto: String): String? =
+        if (texto.isBlank()) "Ingresa tu contraseña" else null
+
+    fun contrasenaNueva(texto: String): String? = when {
+        texto.isBlank() -> "La contraseña es obligatoria"
+        texto.length < LARGO_MINIMO_CONTRASENA -> "Debe tener al menos $LARGO_MINIMO_CONTRASENA caracteres"
+        texto.length > LARGO_MAXIMO_CONTRASENA -> "Máximo $LARGO_MAXIMO_CONTRASENA caracteres"
+        texto.contains(" ") -> "No puede tener espacios"
+        else -> null
+    }
+
+    fun confirmacion(nueva: String, repetida: String): String? = when {
+        repetida.isBlank() -> "Repite la contraseña"
+        nueva != repetida -> "Las contraseñas no coinciden"
+        else -> null
+    }
+
+    fun codigo(texto: String): String? = when {
+        texto.isBlank() -> "Ingresa el código que te llegó"
+        texto.length != LARGO_CODIGO || !texto.all { it.isDigit() } -> "El código tiene $LARGO_CODIGO números"
+        else -> null
+    }
+
+    fun comentarioReapertura(texto: String): String? = when {
+        texto.trim().length < LARGO_MINIMO_COMENTARIO -> "Cuéntanos qué sigue pendiente (mínimo $LARGO_MINIMO_COMENTARIO caracteres)"
+        texto.length > LARGO_MAXIMO_COMENTARIO -> "Máximo $LARGO_MAXIMO_COMENTARIO caracteres"
+        else -> null
+    }
+
+    fun normalizarUrl(texto: String): String {
+        val limpia = texto.trim()
+        val conProtocolo = if (limpia.startsWith("http://") || limpia.startsWith("https://")) limpia else "http://$limpia"
+        return if (conProtocolo.endsWith("/")) conProtocolo else "$conProtocolo/"
+    }
+
+    fun urlServidor(texto: String): String? = when {
+        texto.isBlank() -> "Escribe la dirección del servidor"
+        texto.trim().contains(" ") -> "La dirección no puede tener espacios"
+        normalizarUrl(texto).toHttpUrlOrNull() == null -> "La dirección no es válida"
+        else -> null
     }
 
     fun limpiarRut(texto: String): String =

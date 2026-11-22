@@ -6,38 +6,29 @@ import java.time.LocalDate
 data class Compromiso(
     val id: Long,
     val folio: String,
-    val idUsuario: Long,
+    val usuarioId: Long,
     val nombreUsuario: String,
     val rutUsuario: String,
-    val idEmpresa: Long,
+    val empresaId: Long,
     val empresa: String,
+    val razonSocial: String,
     val concepto: String,
     val numeroCuota: Int?,
     val totalCuotas: Int?,
     val monto: Int,
+    val recargo: Int,
+    val totalAPagar: Int,
     val vencimiento: LocalDate,
-    val estadoGuardado: EstadoCompromiso,
-    val recargoEmpresa: Int,
-    val motivoAnulacion: String? = null
+    val estado: EstadoCompromiso,
+    val diasAtraso: Long,
+    val motivoAnulacion: String? = null,
+    val comentarioAnulacion: String? = null
 ) {
-    val estado: EstadoCompromiso
-        get() = if (estadoGuardado == EstadoCompromiso.PENDIENTE && vencimiento.isBefore(Fechas.hoy()))
-            EstadoCompromiso.VENCIDO else estadoGuardado
-
-    val diasAtraso: Long
-        get() = if (estado == EstadoCompromiso.VENCIDO) Fechas.diasEntre(vencimiento, Fechas.hoy()) else 0
+    val cuota: String
+        get() = if (numeroCuota != null && totalCuotas != null) "$numeroCuota/$totalCuotas" else "—"
 
     val diasParaVencer: Long
         get() = Fechas.diasEntre(Fechas.hoy(), vencimiento)
-
-    val recargo: Int
-        get() = if (estado == EstadoCompromiso.VENCIDO) recargoEmpresa else 0
-
-    val totalAPagar: Int
-        get() = monto + recargo
-
-    val cuota: String
-        get() = if (numeroCuota != null && totalCuotas != null) "$numeroCuota/$totalCuotas" else "—"
 
     val sePuedePagar: Boolean
         get() = estado == EstadoCompromiso.PENDIENTE || estado == EstadoCompromiso.VENCIDO
