@@ -1,4 +1,4 @@
-package cl.duocuc.pagoflex.ui.screens.usuario
+package cl.duocuc.pagoflex.ui.screens.cliente
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,10 +11,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import cl.duocuc.pagoflex.ui.components.AvisoError
+import cl.duocuc.pagoflex.ui.components.PantallaCargando
+import cl.duocuc.pagoflex.viewmodel.cliente.CumplimientoViewModel
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import cl.duocuc.pagoflex.R
-import cl.duocuc.pagoflex.model.Cumplimiento
 import cl.duocuc.pagoflex.ui.components.BarraSuperior
 import cl.duocuc.pagoflex.ui.components.ProgresoAnimado
 import cl.duocuc.pagoflex.ui.components.TarjetaEstadistica
@@ -25,13 +30,23 @@ import cl.duocuc.pagoflex.util.Formato
 
 @Composable
 fun CumplimientoScreen(
-    cumplimiento: Cumplimiento,
-    onVolver: () -> Unit
+    onVolver: () -> Unit,
+    viewModel: CumplimientoViewModel = viewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val cumplimiento = uiState.cumplimiento
     Scaffold(
         topBar = { BarraSuperior(titulo = stringResource(R.string.menu_cumplimiento), onVolver = onVolver) },
         containerColor = MaterialTheme.colorScheme.background
     ) { innerPadding ->
+        if (uiState.cargando) {
+            PantallaCargando(Modifier.padding(innerPadding))
+            return@Scaffold
+        }
+        if (uiState.error != null) {
+            AvisoError(uiState.error ?: "", viewModel::cargar, Modifier.padding(innerPadding))
+            return@Scaffold
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize()

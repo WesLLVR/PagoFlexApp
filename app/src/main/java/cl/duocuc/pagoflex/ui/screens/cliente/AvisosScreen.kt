@@ -1,4 +1,4 @@
-package cl.duocuc.pagoflex.ui.screens.usuario
+package cl.duocuc.pagoflex.ui.screens.cliente
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
@@ -29,12 +29,11 @@ import cl.duocuc.pagoflex.ui.theme.AdvertenciaFondo
 import cl.duocuc.pagoflex.ui.theme.Dimens
 import cl.duocuc.pagoflex.ui.theme.Exito
 import cl.duocuc.pagoflex.ui.theme.ExitoFondo
-import cl.duocuc.pagoflex.viewmodel.AvisosViewModel
+import cl.duocuc.pagoflex.viewmodel.cliente.AvisosViewModel
 
 @Composable
 fun AvisosScreen(
     onVolver: () -> Unit,
-    onGuardado: () -> Unit,
     viewModel: AvisosViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -83,10 +82,7 @@ fun AvisosScreen(
 
             BotonPrincipal(
                 texto = stringResource(R.string.btn_guardar),
-                onClick = {
-                    viewModel.onGuardar()
-                    onGuardado()
-                },
+                onClick = viewModel::onGuardar,
                 icono = R.drawable.ic_check,
                 modifier = Modifier.fillMaxWidth()
             )

@@ -22,7 +22,8 @@ fun TarjetaCompromiso(
             overlineContent = { Text(if (mostrarPersona) compromiso.nombreUsuario else compromiso.empresa) },
             headlineContent = { Text(Formato.pesos(compromiso.totalAPagar)) },
             supportingContent = {
-                Text("${compromiso.concepto}\nVence el ${Fechas.mostrar(compromiso.vencimiento)}")
+                val cuota = if (compromiso.numeroCuota != null) " · Cuota ${compromiso.cuota}" else ""
+                Text("${compromiso.concepto}$cuota\nVence el ${Fechas.mostrar(compromiso.vencimiento)}")
             },
             trailingContent = {
                 EtiquetaEstado(texto = compromiso.estado.etiqueta, color = colorDeEstado(compromiso.estado))

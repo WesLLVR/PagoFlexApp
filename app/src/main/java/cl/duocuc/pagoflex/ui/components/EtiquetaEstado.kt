@@ -29,6 +29,7 @@ fun colorDeEstado(estado: EstadoReporte): Color = when (estado) {
     EstadoReporte.ABIERTO -> EstadoVencido
     EstadoReporte.EN_GESTION -> EstadoRevision
     EstadoReporte.RESUELTO -> EstadoPagado
+    EstadoReporte.CERRADO -> EstadoAnulado
 }
 
 @Composable
