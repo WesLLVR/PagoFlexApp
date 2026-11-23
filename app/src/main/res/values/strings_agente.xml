@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="titulo_reportes">Reportes de problema</string>
+    <string name="titulo_datos_reporte">Datos del reporte</string>
+    <string name="titulo_respuesta">Respuesta para el usuario</string>
+    <string name="dato_usuario">Usuario</string>
+    <string name="btn_tomar_reporte">Tomar reporte</string>
+    <string name="btn_resolver">Dar por resuelto</string>
+    <string name="campo_respuesta">Respuesta</string>
+    <string name="ayuda_respuesta">%1$d/300 · El usuario verá este texto en su app</string>
+    <string name="estado_abiertos">Abiertos</string>
+    <string name="estado_atrasados">Atrasados</string>
+    <string name="estado_en_gestion">En gestión</string>
+    <string name="etiqueta_atrasado">Atrasado</string>
+    <string name="sin_reportes">No hay reportes para estos filtros.</string>
+    <string name="agente_no_anula">Si corresponde anular el cobro, coordínalo con el ejecutivo de la empresa antes de resolver.</string>
+    <string name="perfil_agente">Agente de soporte PagoFlex</string>
+    <string name="buscar_reportes">Buscar por número, persona o empresa</string>
+    <string name="esperando_usuario">Esperando que el usuario confirme si su problema quedó resuelto.</string>
+    <string name="filtro_solo_atrasados">Solo atrasados</string>
+    <string name="filtro_solo_mios">Tomados por mí</string>
+    <string name="reporte_cerrado">El usuario cerró este reporte.</string>
+    <string name="reporte_de_otro_agente">Este reporte lo está gestionando %1$s.</string>
+</resources>
