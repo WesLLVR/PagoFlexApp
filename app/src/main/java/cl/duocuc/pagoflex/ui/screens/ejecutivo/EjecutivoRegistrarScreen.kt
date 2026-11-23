@@ -11,9 +11,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -24,21 +24,21 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import cl.duocuc.pagoflex.R
 import cl.duocuc.pagoflex.ui.components.BarraSuperior
 import cl.duocuc.pagoflex.ui.components.BotonPrincipal
+import cl.duocuc.pagoflex.ui.components.CampoFecha
 import cl.duocuc.pagoflex.ui.components.CampoTexto
 import cl.duocuc.pagoflex.ui.components.MensajeInformativo
 import cl.duocuc.pagoflex.ui.components.TarjetaSeccion
+import cl.duocuc.pagoflex.ui.components.TextoSecundario
 import cl.duocuc.pagoflex.ui.theme.Advertencia
 import cl.duocuc.pagoflex.ui.theme.AdvertenciaFondo
 import cl.duocuc.pagoflex.ui.theme.Dimens
 import cl.duocuc.pagoflex.ui.theme.Exito
 import cl.duocuc.pagoflex.ui.theme.ExitoFondo
-import cl.duocuc.pagoflex.viewmodel.RegistroCompromisoViewModel
+import cl.duocuc.pagoflex.viewmodel.ejecutivo.RegistroCompromisoViewModel
 
 @Composable
 fun EjecutivoRegistrarScreen(
-    nombreEmpresa: String,
     onVolver: () -> Unit,
-    onRegistrado: () -> Unit,
     viewModel: RegistroCompromisoViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -55,11 +55,14 @@ fun EjecutivoRegistrarScreen(
                 .padding(Dimens.espacioPantalla),
             verticalArrangement = Arrangement.spacedBy(Dimens.espacioMedio)
         ) {
-            Text(
-                text = stringResource(R.string.registrar_para_empresa, nombreEmpresa),
-                style = MaterialTheme.typography.bodyLarge
-            )
-
+            AnimatedVisibility(visible = uiState.registrado != null) {
+                MensajeInformativo(
+                    texto = uiState.registrado ?: "",
+                    icono = R.drawable.ic_check,
+                    colorFondo = ExitoFondo,
+                    colorTexto = Exito
+                )
+            }
             TarjetaSeccion(titulo = stringResource(R.string.titulo_persona)) {
                 CampoTexto(
                     valor = uiState.rut,
@@ -85,6 +88,7 @@ fun EjecutivoRegistrarScreen(
                             etiqueta = stringResource(R.string.campo_correo),
                             icono = R.drawable.ic_correo,
                             error = uiState.errorCorreo,
+                            ayuda = stringResource(R.string.ayuda_correo_persona_nueva),
                             tipoTeclado = KeyboardType.Email
                         )
                         CampoTexto(
@@ -98,7 +102,6 @@ fun EjecutivoRegistrarScreen(
                     }
                 }
             }
-
             TarjetaSeccion(titulo = stringResource(R.string.titulo_compromiso)) {
                 CampoTexto(
                     valor = uiState.concepto,
@@ -116,13 +119,12 @@ fun EjecutivoRegistrarScreen(
                     ayuda = stringResource(R.string.ayuda_monto),
                     tipoTeclado = KeyboardType.Number
                 )
-                CampoTexto(
-                    valor = uiState.vencimiento,
-                    onValorCambia = viewModel::onVencimientoCambia,
+                CampoFecha(
                     etiqueta = stringResource(R.string.campo_vencimiento),
-                    icono = R.drawable.ic_calendario,
+                    fecha = uiState.vencimiento,
+                    onFechaElegida = viewModel::onVencimientoElegido,
                     error = uiState.errorVencimiento,
-                    ayuda = stringResource(R.string.ayuda_fecha)
+                    soloDesdeHoy = true
                 )
                 Row(horizontalArrangement = Arrangement.spacedBy(Dimens.espacioChico)) {
                     CampoTexto(
@@ -144,13 +146,8 @@ fun EjecutivoRegistrarScreen(
                         modifier = Modifier.weight(1f)
                     )
                 }
-                Text(
-                    text = stringResource(R.string.ayuda_cuotas),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                TextoSecundario(stringResource(R.string.ayuda_cuotas))
             }
-
             AnimatedVisibility(visible = uiState.errorGeneral != null) {
                 MensajeInformativo(
                     texto = uiState.errorGeneral ?: "",
@@ -159,22 +156,14 @@ fun EjecutivoRegistrarScreen(
                     colorTexto = Advertencia
                 )
             }
-
+            if (uiState.procesando) LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             BotonPrincipal(
                 texto = stringResource(R.string.btn_registrar),
-                onClick = { if (viewModel.onRegistrar()) onRegistrado() },
+                onClick = viewModel::onRegistrar,
+                habilitado = !uiState.procesando,
                 icono = R.drawable.ic_check,
                 modifier = Modifier.fillMaxWidth()
             )
-
-            AnimatedVisibility(visible = uiState.registrado) {
-                MensajeInformativo(
-                    texto = stringResource(R.string.compromiso_registrado),
-                    icono = R.drawable.ic_check,
-                    colorFondo = ExitoFondo,
-                    colorTexto = Exito
-                )
-            }
             Spacer(Modifier.height(Dimens.espacioGrande))
         }
     }

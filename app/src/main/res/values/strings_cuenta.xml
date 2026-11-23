@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ayuda_opcional">Opcional</string>
+    <string name="btn_cambiar_contrasena">Cambiar contraseña</string>
+    <string name="btn_enviar_codigo">Enviar código</string>
+    <string name="btn_guardar_datos">Guardar mis datos</string>
+    <string name="btn_ingresar">Ingresar</string>
+    <string name="btn_ir_login">Ir a iniciar sesión</string>
+    <string name="btn_olvide_contrasena">¿Olvidaste tu contraseña?</string>
+    <string name="btn_reenviar_codigo">Reenviar código</string>
+    <string name="btn_restablecer">Guardar nueva contraseña</string>
+    <string name="campo_codigo">Código de 6 números</string>
+    <string name="campo_comuna">Comuna</string>
+    <string name="campo_contrasena">Contraseña</string>
+    <string name="campo_contrasena_actual">Contraseña actual</string>
+    <string name="campo_contrasena_nueva">Nueva contraseña</string>
+    <string name="campo_contrasena_repetir">Repite la nueva contraseña</string>
+    <string name="cd_foto_perfil">Foto de perfil</string>
+    <string name="contrasena_restablecida">¡Listo! Tu nueva contraseña quedó guardada. Ya puedes iniciar sesión.</string>
+    <string name="dato_cargo">Cargo</string>
+    <string name="dato_rol">Perfil</string>
+    <string name="login_subtitulo">Todos tus pagos, en un solo lugar</string>
+    <string name="notificacion_codigo_texto">Tu código para recuperar la contraseña es %1$s. Vence en %2$d minutos.</string>
+    <string name="notificacion_codigo_titulo">Código de recuperación</string>
+    <string name="paso_codigo">2. Crea tu nueva contraseña</string>
+    <string name="paso_correo">1. Tu correo</string>
+    <string name="prueba_agente">Agente: %1$s</string>
+    <string name="prueba_cliente">Usuario final: %1$s</string>
+    <string name="prueba_ejecutivo">Ejecutiva: %1$s</string>
+    <string name="texto_codigo_notificacion">Te enviamos un código en una notificación. Revisa tu barra de notificaciones.</string>
+    <string name="texto_codigo_sin_permiso">No tenemos permiso para enviarte notificaciones, así que te mostramos el código aquí: %1$s</string>
+    <string name="texto_cuentas_prueba">Toca una cuenta para completar el correo. La contraseña de prueba es 123456.</string>
+    <string name="texto_recuperar">Escribe el correo con el que te registraron. Te enviaremos un código para crear una nueva contraseña.</string>
+    <string name="titulo_cambiar_contrasena">Cambiar contraseña</string>
+    <string name="titulo_cuentas_prueba">Cuentas de prueba</string>
+    <string name="titulo_login">Iniciar sesión</string>
+    <string name="titulo_mis_datos">Mis datos</string>
+    <string name="titulo_perfil">Mi perfil</string>
+    <string name="titulo_recuperar">Recuperar contraseña</string>
+    <string name="titulo_servidor">Servidor de PagoFlex</string>
+    <string name="texto_servidor">Dirección del API Gateway. En el emulador del mismo computador es http://10.0.2.2:8080/. En otro equipo usa la IP del computador con los microservicios o la URL pública del túnel.</string>
+    <string name="campo_servidor">Dirección del servidor</string>
+    <string name="btn_servidor_por_defecto">Usar la dirección del emulador</string>
+    <string name="btn_guardar_servidor">Guardar</string>
+    <string name="servidor_actual">Servidor: %1$s</string>
+</resources>

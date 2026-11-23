@@ -14,6 +14,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import cl.duocuc.pagoflex.ui.components.RecargaAutomatica
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -34,16 +38,18 @@ import cl.duocuc.pagoflex.ui.theme.EstadoPendiente
 import cl.duocuc.pagoflex.ui.theme.EstadoRevision
 import cl.duocuc.pagoflex.ui.theme.EstadoVencido
 import cl.duocuc.pagoflex.util.Formato
-import cl.duocuc.pagoflex.viewmodel.EjecutivoUiState
+import cl.duocuc.pagoflex.viewmodel.ejecutivo.ResumenCobranzaViewModel
 
 @Composable
 fun EjecutivoResumenScreen(
-    uiState: EjecutivoUiState,
-    onMesAnterior: () -> Unit,
-    onMesSiguiente: () -> Unit,
-    onVolver: () -> Unit
+    onVolver: () -> Unit,
+    viewModel: ResumenCobranzaViewModel = viewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val resumen = uiState.resumen
+
+    RecargaAutomatica(onRecargar = viewModel::recargar)
+
     val datos = listOf(
         DatoGrafico(stringResource(R.string.estado_pagados), resumen.pagados, EstadoPagado),
         DatoGrafico(stringResource(R.string.estado_pendientes), resumen.pendientes, EstadoPendiente),
@@ -65,7 +71,7 @@ fun EjecutivoResumenScreen(
             verticalArrangement = Arrangement.spacedBy(Dimens.espacioMedio)
         ) {
             Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = onMesAnterior) {
+                IconButton(onClick = viewModel::onMesAnterior) {
                     Icon(painterResource(R.drawable.ic_anterior), contentDescription = stringResource(R.string.cd_mes_anterior))
                 }
                 Text(
@@ -74,7 +80,7 @@ fun EjecutivoResumenScreen(
                     textAlign = TextAlign.Center,
                     modifier = Modifier.weight(1f)
                 )
-                IconButton(onClick = onMesSiguiente) {
+                IconButton(onClick = viewModel::onMesSiguiente) {
                     Icon(painterResource(R.drawable.ic_siguiente), contentDescription = stringResource(R.string.cd_mes_siguiente))
                 }
             }
@@ -86,7 +92,7 @@ fun EjecutivoResumenScreen(
                 )
                 ProgresoAnimado(progreso = ((resumen.tasa ?: 0.0) / 100.0).toFloat(), color = EstadoPagado)
                 Text(
-                    text = stringResource(R.string.formula_tasa, resumen.pagados, resumen.considerados),
+                    text = stringResource(R.string.formula_tasa, resumen.pagados, resumen.pagados + resumen.pendientes + resumen.vencidos + resumen.enRevision),
                     style = MaterialTheme.typography.bodyMedium
                 )
                 FilaDato(stringResource(R.string.monto_recaudado), Formato.pesos(resumen.montoRecaudado), destacado = true)

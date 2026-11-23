@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_registrar">Registrar compromiso</string>
+    <string name="menu_resumen">Resumen de cobranza</string>
+    <string name="titulo_compromisos_empresa">Compromisos de la empresa</string>
+    <string name="titulo_persona">Persona</string>
+    <string name="titulo_compromiso">Compromiso</string>
+    <string name="titulo_tasa_cobranza">Tasa de cobranza</string>
+    <string name="titulo_grafico_estados">Compromisos por estado</string>
+    <string name="dato_nombre">Nombre</string>
+    <string name="dialogo_anular_titulo">Anular %1$s</string>
+    <string name="btn_nuevo">Nuevo</string>
+    <string name="btn_anular">Anular</string>
+    <string name="btn_anular_compromiso">Anular compromiso</string>
+    <string name="btn_registrar">Registrar compromiso</string>
+    <string name="campo_rut">RUT de la persona</string>
+    <string name="campo_concepto">Concepto</string>
+    <string name="campo_monto">Monto en pesos</string>
+    <string name="campo_vencimiento">Fecha de vencimiento</string>
+    <string name="campo_cuota">N° cuota</string>
+    <string name="campo_total_cuotas">Total cuotas</string>
+    <string name="ayuda_comentario_anulacion">Obligatorio si eliges Otro</string>
+    <string name="ayuda_rut">Ejemplo: 12.476.318-5</string>
+    <string name="persona_encontrada">Persona: %1$s</string>
+    <string name="ayuda_monto">Solo números, sin puntos. Ejemplo: 310000</string>
+    <string name="ayuda_cuotas">Si el compromiso no es en cuotas, deja ambos campos vacíos.</string>
+    <string name="estado_pagados">Pagados</string>
+    <string name="estado_pendientes">Pendientes</string>
+    <string name="estado_vencidos">Vencidos</string>
+    <string name="estado_revision">Revisión</string>
+    <string name="estado_anulados">Anulados</string>
+    <string name="monto_recaudado">Monto recaudado</string>
+    <string name="formula_tasa">%1$d pagados de %2$d (sin anulados)</string>
+    <string name="cd_mes_anterior">Mes anterior</string>
+    <string name="cd_mes_siguiente">Mes siguiente</string>
+    <string name="perfil_ejecutivo">Empresa cliente: %1$s</string>
+    <string name="persona_nueva">Esta persona aún no está en PagoFlex. Completa sus datos básicos.</string>
+    <string name="campo_mes">Mes de vencimiento</string>
+    <string name="ayuda_correo_persona_nueva">Con este correo podrá crear su contraseña en \"Recuperar contraseña\"</string>
+    <string name="ayuda_eliminar">Solo se pueden eliminar compromisos pendientes que se registraron por error.</string>
+    <string name="btn_eliminar">Eliminar</string>
+    <string name="btn_eliminar_compromiso">Eliminar compromiso</string>
+    <string name="buscar_compromisos_empresa">Buscar por persona, RUT, concepto o folio</string>
+    <string name="dialogo_eliminar_mensaje">El compromiso se borrará y la persona dejará de verlo. Esta acción no se puede deshacer.</string>
+    <string name="dialogo_eliminar_titulo">Eliminar %1$s</string>
+</resources>
